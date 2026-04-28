@@ -1,0 +1,38 @@
+cat > .gitignore << 'EOF'
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Django
+*.sqlite3
+staticfiles/
+media/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+
+# Mac
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Data
+data.json
+EOF

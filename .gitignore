@@ -1,13 +1,33 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+
+# Django
 *.sqlite3
+db.sqlite3
 staticfiles/
 media/
+
+# Environment variables
 .env
-frontend/node_modules/
+.env.local
+.env.production
+
+# Node / frontend
+node_modules/
 frontend/dist/
-frontend/.env
+
+# Logs
+*.log
+
+# OS / Editor
 .DS_Store
 .vscode/
+
+# Optional (only ignore if not needed)
 data.json

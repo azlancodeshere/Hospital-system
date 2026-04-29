@@ -87,205 +87,174 @@ const Signup = () => {
   const labelClass = "text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 block";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="flex w-full max-w-3xl rounded-2xl overflow-hidden shadow-lg">
+  <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
 
-     
-        <div className="flex flex-col justify-center bg-blue-700 text-white px-10 py-12 w-72">
-          <h1 className="text-2xl font-semibold mb-3">MediBook</h1>
-          <p className="text-blue-200 text-sm leading-relaxed">
-            Book appointments with top doctors in your city, anytime.
-          </p>
-          <div className="flex gap-2 mt-8">
-            <div className="w-6 h-2 bg-white rounded-full"></div>
-            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-          </div>
+    <div className="w-full max-w-5xl bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col lg:flex-row">
+
+      {/* LEFT PANEL (HIDDEN ON MOBILE) */}
+      <div className="hidden lg:flex lg:w-1/2 bg-blue-700 text-white flex-col justify-center px-10">
+        <h1 className="text-3xl font-semibold mb-4">MediBook</h1>
+        <p className="text-blue-200 text-sm">
+          Book appointments with top doctors in your city, anytime.
+        </p>
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="w-full lg:w-1/2 px-6 sm:px-10 py-8">
+
+        <h2 className="text-2xl font-semibold text-gray-800 mb-5">
+          Create your account
+        </h2>
+
+        {/* ROLE SWITCH */}
+        <div className="flex bg-gray-100 rounded-lg p-1 mb-5 gap-1">
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, role: "patient" })}
+            className={`flex-1 py-2 text-sm rounded-md ${
+              formData.role === "patient"
+                ? "bg-white text-blue-700 shadow border"
+                : "text-gray-500"
+            }`}
+          >
+            Patient
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setFormData({ ...formData, role: "doctor" })}
+            className={`flex-1 py-2 text-sm rounded-md ${
+              formData.role === "doctor"
+                ? "bg-white text-blue-700 shadow border"
+                : "text-gray-500"
+            }`}
+          >
+            Doctor
+          </button>
         </div>
 
-     
-        <div className="flex-1 bg-white px-8 py-8">
-          <h2 className="text-xl font-semibold text-gray-800 mb-5">
-            Create your account
-          </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-          
-          <div className="flex bg-gray-100 rounded-lg p-1 mb-5 gap-1">
-            <button
-              type="button"
-              onClick={() => setFormData({ ...formData, role: "patient" })}
-              className={`flex-1 py-2 text-sm font-medium rounded-md transition ${formData.role === "patient"
-                  ? "bg-white text-blue-700 shadow-sm border border-gray-200"
-                  : "text-gray-500"
-                }`}
-            >
-              Patient
-            </button>
-            <button
-              type="button"
-              onClick={() => setFormData({ ...formData, role: "doctor" })}
-              className={`flex-1 py-2 text-sm font-medium rounded-md transition ${formData.role === "doctor"
-                  ? "bg-white text-blue-700 shadow-sm border border-gray-200"
-                  : "text-gray-500"
-                }`}
-            >
-              Doctor
-            </button>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            className={inputClass}
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className={inputClass}
+            required
+          />
+
+          {/* PASSWORD FIX */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className={inputClass}
+              required
+            />
+            <input
+              type="password"
+              name="password2"
+              placeholder="Confirm password"
+              value={formData.password2}
+              onChange={handleChange}
+              className={inputClass}
+              required
+            />
           </div>
 
-          <form onSubmit={handleSubmit}>
-           
-            <div className="mb-3">
-              <label className={labelClass}>Username</label>
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className={inputClass}
+          />
+
+          <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            className={inputClass}
+            required
+          >
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+
+          {/* DOCTOR FIELDS */}
+          {formData.role === "doctor" && (
+            <div className="space-y-3 border-t pt-4">
               <input
-                type="text"
-                name="username"
-                placeholder="e.g. john_doe"
-                value={formData.username}
+                name="specialization"
+                placeholder="Specialization"
+                value={formData.specialization}
                 onChange={handleChange}
                 className={inputClass}
                 required
               />
-            </div>
 
-            
-            <div className="mb-3">
-              <label className={labelClass}>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="you@email.com"
-                value={formData.email}
-                onChange={handleChange}
-                className={inputClass}
-                required
-              />
-            </div>
-
-           
-            <div className="grid grid-cols-2 gap-3 mb-3">
-              <div>
-                <label className={labelClass}>Password</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
-                  type="password"
-                  name="password"
-                  placeholder="••••••••"
-                  value={formData.password}
+                  name="experience_years"
+                  type="number"
+                  placeholder="Experience (years)"
+                  value={formData.experience_years}
+                  onChange={handleChange}
+                  className={inputClass}
+                  required
+                />
+
+                <input
+                  name="consultation_fee"
+                  type="number"
+                  placeholder="Consultation fee"
+                  value={formData.consultation_fee}
                   onChange={handleChange}
                   className={inputClass}
                   required
                 />
               </div>
-              <div>
-                <label className={labelClass}>Confirm password</label>
-                <input
-                  type="password"
-                  name="password2"
-                  placeholder="••••••••"
-                  value={formData.password2}
-                  onChange={handleChange}
-                  className={inputClass}
-                  required
-                />
-              </div>
             </div>
+          )}
 
-           
-            <div className="mb-3">
-              <label className={labelClass}>Phone</label>
-              <input
-                type="text"
-                name="phone"
-                placeholder="+91 98765 43210"
-                value={formData.phone}
-                onChange={handleChange}
-                className={inputClass}
-              />
-            </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg font-semibold"
+          >
+            {loading ? "Creating..." : "Create account"}
+          </button>
+        </form>
 
+        <p className="text-center text-sm mt-4 text-gray-500">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 font-medium">
+            Login
+          </Link>
+        </p>
 
-           
-            <div className="mb-3">
-              <label className={labelClass}>Gender</label>
-              <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className={inputClass}
-                required
-              >
-                <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-           
-            {formData.role === "doctor" && (
-              <div className="border-t border-gray-100 pt-4 mt-4">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
-                  Doctor details
-                </p>
-                <div className="mb-3">
-                  <label className={labelClass}>Specialization</label>
-                  <input
-                    name="specialization"
-                    placeholder="e.g. Cardiologist"
-                    value={formData.specialization}
-                    onChange={handleChange}
-                    className={inputClass}
-                    required
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className={labelClass}>Experience (yrs)</label>
-                    <input
-                      name="experience_years"
-                      type="number"
-                      placeholder="5"
-                      value={formData.experience_years}
-                      onChange={handleChange}
-                      className={inputClass}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Fee (₹)</label>
-                    <input
-                      name="consultation_fee"
-                      type="number"
-                      placeholder="500"
-                      value={formData.consultation_fee}
-                      onChange={handleChange}
-                      className={inputClass}
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white py-2.5 rounded-lg text-sm font-semibold transition mt-5"
-            >
-              {loading ? "Creating account..." : "Create account"}
-            </button>
-          </form>
-
-          <p className="text-center text-xs mt-4 text-gray-400">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 font-medium">
-              Login
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Signup;

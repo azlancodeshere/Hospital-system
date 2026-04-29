@@ -1,0 +1,12 @@
+name: Ping Backend
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render App
+        run: curl https://hospital-system-ytes.onrender.com

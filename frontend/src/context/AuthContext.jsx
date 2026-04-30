@@ -6,9 +6,9 @@ const AuthContext = createContext(false);
 
 function AuthProvider({ children }) {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("access"));
   const [username, setUsername] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(localStorage.getItem("role") || null);
 
   
   const logout = () => {
@@ -46,7 +46,7 @@ function AuthProvider({ children }) {
 
       if (expiry_date >= current_time) {
         setIsAuthenticated(true);
-         setRole(localStorage.getItem("role") || "");
+       
         get_username();
       } else {
         logout(); 

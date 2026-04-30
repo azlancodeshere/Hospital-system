@@ -28,6 +28,8 @@ const Login = () => {
       .then(res => {
         const { access, refresh, role } = res.data;
 
+        console.log("role from API:", role);
+
         localStorage.setItem("access", access);
         localStorage.setItem("refresh", refresh);
         localStorage.setItem("role", role);

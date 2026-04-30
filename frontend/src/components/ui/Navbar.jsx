@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const { isAuthenticated, username, role, logout } = useContext(AuthContext);
@@ -56,7 +55,6 @@ const Navbar = () => {
                 </div>
                 <span className="text-sm text-blue-700">{username}</span>
               </Link>
-
               <button
                 onClick={handleLogout}
                 className="text-sm text-gray-500 hover:text-red-500 border px-3 py-1.5 rounded-lg"
@@ -78,24 +76,29 @@ const Navbar = () => {
 
         {/* MOBILE MENU BUTTON */}
         <button
-          className="md:hidden"
+          className="md:hidden p-1"
           onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
         </button>
       </div>
 
       {/* MOBILE MENU */}
       {open && (
         <div className="md:hidden px-4 pb-4 space-y-3 text-gray-600">
-
-          <Link to="/" onClick={() => setOpen(false)} className="block">
-            Home
-          </Link>
-
-          <Link to="/doctors" onClick={() => setOpen(false)} className="block">
-            Doctors
-          </Link>
+          <Link to="/" onClick={() => setOpen(false)} className="block">Home</Link>
+          <Link to="/doctors" onClick={() => setOpen(false)} className="block">Doctors</Link>
 
           {isAuthenticated && role === "patient" && (
             <Link to="/patient/dashboard" onClick={() => setOpen(false)} className="block">
@@ -124,19 +127,13 @@ const Navbar = () => {
                 </div>
                 <span>{username}</span>
               </div>
-
-              <button
-                onClick={handleLogout}
-                className="text-red-500 text-sm"
-              >
+              <button onClick={handleLogout} className="text-red-500 text-sm">
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" onClick={() => setOpen(false)} className="block">
-                Login
-              </Link>
+              <Link to="/login" onClick={() => setOpen(false)} className="block">Login</Link>
               <Link to="/signup" onClick={() => setOpen(false)} className="block text-blue-700 font-medium">
                 Sign up
               </Link>
